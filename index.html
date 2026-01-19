@@ -1,0 +1,1319 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Meta9 Technologies — Practice-First Workforce Platforms</title>
+  <meta name="description" content="Meta9 Technologies is an IT and software product company operating in the workforce technology space. PracticeLab: practice-first platforms for capability development, performance readiness, and workforce operations." />
+
+  <style>
+    /* =========================================================
+       META9 — Single-file homepage (Dark + Light toggle)
+       Blue + Teal theme, mobile-friendly, safer mobile support
+       ========================================================= */
+
+    :root{
+      --maxw: 1140px;
+      --navh: 76px;
+      --r12: 12px;
+      --r16: 16px;
+      --r20: 20px;
+      --r24: 24px;
+
+      --shadow: 0 18px 60px rgba(0,0,0,0.22);
+      --shadow2: 0 12px 30px rgba(0,0,0,0.14);
+
+      /* Brand */
+      --blue: #2F7CFF;
+      --blue2:#1E4FBF;
+      --teal: #1FE0C6;
+      --teal2:#0BAA9A;
+
+      /* Dark theme (slightly lighter than before) */
+      --bg: #0b1630;
+      --bg2:#0f2146;
+
+      --text: rgba(255,255,255,0.92);
+      --muted: rgba(255,255,255,0.72);
+      --border: rgba(255,255,255,0.14);
+      --navbg: rgba(11,22,48,0.72);
+
+      /* Surfaces (avoid color-mix for mobile compatibility) */
+      --surface: rgba(255,255,255,0.075);
+      --surface2: rgba(255,255,255,0.11);
+      --surface3: rgba(255,255,255,0.15);
+
+      --primaryText: #071225;
+      --chipText: rgba(255,255,255,0.86);
+
+      --heroGlow1: rgba(47,124,255,0.22);
+      --heroGlow2: rgba(31,224,198,0.18);
+      --gridLine: rgba(255,255,255,0.06);
+
+      --toastbg: rgba(10,18,38,0.92);
+      --modalbg: rgba(10,18,38,0.92);
+
+      --link: rgba(255,255,255,0.86);
+    }
+
+    html[data-theme="light"]{
+      --bg: #f5fbff;
+      --bg2:#e8f6ff;
+
+      --text: rgba(7,18,37,0.92);
+      --muted: rgba(7,18,37,0.70);
+      --border: rgba(7,18,37,0.12);
+      --navbg: rgba(255,255,255,0.88);
+
+      /* Lighter theme with more blue/teal presence */
+      --surface: rgba(7,18,37,0.05);
+      --surface2: rgba(47,124,255,0.08);
+      --surface3: rgba(31,224,198,0.09);
+
+      --shadow: 0 18px 60px rgba(7,18,37,0.10);
+      --shadow2: 0 12px 28px rgba(7,18,37,0.08);
+
+      --chipText: rgba(7,18,37,0.82);
+      --link: rgba(7,18,37,0.86);
+
+      --heroGlow1: rgba(47,124,255,0.18);
+      --heroGlow2: rgba(31,224,198,0.16);
+      --gridLine: rgba(7,18,37,0.06);
+
+      --toastbg: rgba(255,255,255,0.94);
+      --modalbg: rgba(255,255,255,0.94);
+    }
+
+    *{ box-sizing: border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(900px 520px at 14% 10%, var(--heroGlow1), transparent 58%),
+        radial-gradient(900px 520px at 85% 18%, var(--heroGlow2), transparent 58%),
+        linear-gradient(180deg, var(--bg2) 0%, var(--bg) 65%, var(--bg2) 100%);
+      overflow-x:hidden;
+    }
+
+    /* Subtle grid: use @supports for mask-image to avoid mobile quirks */
+    .gridBG{
+      position: fixed;
+      inset: 0;
+      pointer-events:none;
+      background-image:
+        linear-gradient(var(--gridLine) 1px, transparent 1px),
+        linear-gradient(90deg, var(--gridLine) 1px, transparent 1px);
+      background-size: 44px 44px;
+      opacity: 0.55;
+      z-index: 0;
+    }
+    @supports (mask-image: radial-gradient(circle, #000, transparent)) {
+      .gridBG{
+        mask-image: radial-gradient(circle at 35% 20%, rgba(0,0,0,1), transparent 60%);
+      }
+    }
+    html[data-theme="light"] .gridBG{ opacity: 0.40; }
+
+    a{ color: inherit; text-decoration:none; }
+    button{ font: inherit; }
+    .wrap{
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 0 18px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* =========================
+       NAV
+    ========================== */
+    header{
+      position: sticky;
+      top:0;
+      z-index: 50;
+      backdrop-filter: blur(12px);
+      background: var(--navbg);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav{
+      height: var(--navh);
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap: 12px;
+      min-width: 220px;
+    }
+
+    /* M9 box */
+    .logoBox{
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--blue), var(--teal));
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      box-shadow: 0 14px 34px rgba(47,124,255,0.20), 0 14px 34px rgba(31,224,198,0.14);
+      border: 1px solid rgba(255,255,255,0.16);
+      user-select:none;
+      overflow:hidden;
+      position: relative;
+    }
+    .logoBox:before{
+      content:"";
+      position:absolute;
+      inset:-35%;
+      background: radial-gradient(circle at 35% 35%, rgba(255,255,255,0.55), transparent 50%);
+      transform: rotate(20deg);
+      opacity: 0.8;
+    }
+    html[data-theme="light"] .logoBox{
+      border: 1px solid rgba(7,18,37,0.08);
+      box-shadow: 0 14px 34px rgba(47,124,255,0.16), 0 14px 34px rgba(31,224,198,0.12);
+    }
+    .logoBox span{
+      position: relative;
+      color: white;
+      font-weight: 900;
+      letter-spacing: 0.7px;
+      font-size: 14px;
+    }
+
+    .brandTitle{
+      display:flex;
+      flex-direction: column;
+      line-height: 1.12;
+    }
+    .brandTitle strong{ font-size: 14px; letter-spacing: 0.2px; }
+    .brandTitle span{ font-size: 12px; color: var(--muted); }
+
+    nav ul{
+      list-style:none;
+      margin:0; padding:0;
+      display:flex;
+      align-items:center;
+      gap: 18px;
+    }
+    nav a{
+      font-size: 13px;
+      color: var(--muted);
+      padding: 10px 10px;
+      border-radius: 10px;
+      transition: background 180ms ease, color 180ms ease;
+    }
+    nav a:hover{ background: var(--surface); color: var(--text); }
+
+    .navActions{ display:flex; gap: 10px; align-items:center; }
+
+    .btn{
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      cursor:pointer;
+      transition: transform 120ms ease, background 180ms ease, border-color 180ms ease;
+      white-space: nowrap;
+    }
+    .btn:hover{ background: var(--surface2); border-color: rgba(255,255,255,0.20); }
+    html[data-theme="light"] .btn:hover{ border-color: rgba(7,18,37,0.18); }
+    .btn:active{ transform: translateY(1px); }
+
+    .btnPrimary{
+      border: 0;
+      background: linear-gradient(135deg, var(--blue), var(--teal));
+      color: var(--primaryText);
+      font-weight: 850;
+      box-shadow: 0 18px 44px rgba(47,124,255,0.16), 0 18px 44px rgba(31,224,198,0.12);
+    }
+
+    .btnTiny{ padding: 9px 12px; font-size: 13px; }
+
+    .hamburger{
+      display:none;
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      cursor:pointer;
+      align-items:center; justify-content:center;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .hamburger span{
+      width: 18px; height: 2px;
+      background: rgba(255,255,255,0.78);
+      border-radius: 2px;
+    }
+    html[data-theme="light"] .hamburger span{
+      background: rgba(7,18,37,0.78);
+    }
+
+    /* Mobile menu */
+    .mobileMenu{ display:none; padding: 10px 0 16px; }
+    .mCard{
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.08);
+      border-radius: var(--r20);
+      padding: 12px;
+      box-shadow: var(--shadow2);
+    }
+    html[data-theme="light"] .mCard{
+      background: rgba(7,18,37,0.04);
+    }
+    .mobileMenu a{
+      display:block;
+      padding: 12px 12px;
+      border-radius: 12px;
+      color: var(--muted);
+    }
+    .mobileMenu a:hover{ background: var(--surface2); color: var(--text); }
+    .mRow{ display:flex; gap:10px; padding: 12px 10px 0; }
+    .mRow .btn{ width:100%; }
+
+    /* =========================
+       HERO
+    ========================== */
+    main{ position: relative; z-index: 1; }
+    .hero{ padding: 56px 0 18px; }
+
+    .heroGrid{
+      display:grid;
+      grid-template-columns: 1.12fr 0.88fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .panel{
+      border: 1px solid var(--border);
+      border-radius: var(--r24);
+      background: rgba(255,255,255,0.08);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position: relative;
+    }
+    html[data-theme="light"] .panel{
+      background: rgba(255,255,255,0.78);
+    }
+    .panel:before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background:
+        radial-gradient(680px 330px at 18% 18%, var(--heroGlow1), transparent 62%),
+        radial-gradient(680px 330px at 82% 12%, var(--heroGlow2), transparent 60%);
+      pointer-events:none;
+      opacity: 0.85;
+    }
+    .panel > *{ position: relative; }
+
+    .heroMain{ padding: 26px; }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--muted);
+      font-size: 12px;
+      width: fit-content;
+    }
+    .dot{
+      width: 9px; height: 9px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--teal), var(--blue));
+      box-shadow: 0 0 0 6px rgba(31,224,198,0.10);
+    }
+
+    h1{
+      margin: 14px 0 10px;
+      font-size: clamp(28px, 3.4vw, 46px);
+      line-height: 1.08;
+      letter-spacing: -0.7px;
+    }
+    .sub{
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.62;
+      color: var(--muted);
+      max-width: 64ch;
+    }
+
+    .heroActions{
+      margin-top: 18px;
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    /* "Proof" chips */
+    .chips{
+      margin-top: 16px;
+      display:flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .chip{
+      border: 1px solid var(--border);
+      background: var(--surface);
+      border-radius: 999px;
+      padding: 10px 12px;
+      font-size: 12.5px;
+      color: var(--chipText);
+      display:flex;
+      gap: 8px;
+      align-items:center;
+    }
+    .chip b{
+      color: var(--primaryText);
+      background: linear-gradient(135deg, rgba(47,124,255,0.95), rgba(31,224,198,0.88));
+      padding: 4px 9px;
+      border-radius: 999px;
+      font-size: 12px;
+      letter-spacing: 0.2px;
+    }
+
+    .heroSide{ padding: 18px; }
+    .sideTitle{
+      margin:0;
+      font-weight: 900;
+      letter-spacing: 0.2px;
+      font-size: 14px;
+    }
+    .sideText{
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .callout{
+      margin-top: 14px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.06);
+      border-radius: var(--r20);
+      padding: 14px;
+      box-shadow: var(--shadow2);
+    }
+    html[data-theme="light"] .callout{
+      background: rgba(7,18,37,0.03);
+    }
+    .callout small{
+      display:block;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 12.5px;
+    }
+    .callout strong{
+      display:block;
+      margin-top: 6px;
+      font-size: 13px;
+      letter-spacing: -0.1px;
+    }
+
+    .list{
+      margin: 12px 0 0;
+      padding: 0;
+      list-style:none;
+      display:grid;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    .list li{ display:flex; gap: 10px; align-items:flex-start; }
+    .tick{
+      width: 18px; height: 18px; border-radius: 6px;
+      background: linear-gradient(135deg, rgba(47,124,255,0.95), rgba(31,224,198,0.88));
+      color: var(--primaryText);
+      display:flex; align-items:center; justify-content:center;
+      font-weight: 900;
+      font-size: 12px;
+      flex: 0 0 auto;
+      margin-top: 2px;
+    }
+
+    /* =========================
+       SECTIONS
+    ========================== */
+    section{ padding: 26px 0; }
+    .sectionHead{
+      display:flex;
+      align-items:flex-end;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    h2{
+      margin:0;
+      font-size: clamp(20px, 2.2vw, 30px);
+      letter-spacing: -0.35px;
+      line-height: 1.2;
+    }
+    .lead{
+      margin: 0;
+      color: var(--muted);
+      max-width: 72ch;
+      font-size: 13.8px;
+      line-height: 1.65;
+    }
+
+    .grid3{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .grid4{ display:grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+
+    .card{
+      border: 1px solid var(--border);
+      border-radius: var(--r20);
+      background: var(--surface);
+      padding: 16px;
+      box-shadow: var(--shadow2);
+    }
+    html[data-theme="light"] .card{
+      background: rgba(255,255,255,0.78);
+    }
+    .card h3{
+      margin: 0 0 6px;
+      font-size: 15px;
+      letter-spacing: -0.15px;
+    }
+    .card p{
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .icon{
+      width: 36px; height: 36px;
+      border-radius: 13px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, rgba(47,124,255,0.16), rgba(31,224,198,0.12));
+      border: 1px solid var(--border);
+    }
+
+    blockquote{
+      margin: 12px 0 0;
+      padding: 14px 14px;
+      border-radius: var(--r20);
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.06);
+      box-shadow: var(--shadow2);
+      line-height: 1.6;
+      font-size: 13.5px;
+    }
+    html[data-theme="light"] blockquote{
+      background: rgba(7,18,37,0.03);
+    }
+    blockquote b{
+      color: var(--primaryText);
+      background: linear-gradient(135deg, rgba(47,124,255,0.95), rgba(31,224,198,0.88));
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-size: 12px;
+      letter-spacing: 0.2px;
+      margin-right: 8px;
+    }
+
+    .highlight{
+      border: 1px solid var(--border);
+      border-radius: var(--r24);
+      background:
+        radial-gradient(760px 360px at 15% 10%, rgba(47,124,255,0.14), transparent 64%),
+        radial-gradient(760px 360px at 85% 35%, rgba(31,224,198,0.12), transparent 64%),
+        rgba(255,255,255,0.06);
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+    html[data-theme="light"] .highlight{
+      background:
+        radial-gradient(760px 360px at 15% 10%, rgba(47,124,255,0.10), transparent 64%),
+        radial-gradient(760px 360px at 85% 35%, rgba(31,224,198,0.10), transparent 64%),
+        rgba(255,255,255,0.88);
+    }
+
+    .punch{
+      margin: 8px 0 0;
+      font-weight: 950;
+      letter-spacing: -0.25px;
+      font-size: clamp(18px, 2.0vw, 20px);
+      line-height: 1.25;
+      background: linear-gradient(135deg, rgba(47,124,255,0.95), rgba(31,224,198,0.90));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .punchSub{
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 13.7px;
+      line-height: 1.65;
+      max-width: 78ch;
+    }
+
+    .cta{
+      padding: 24px;
+      border-radius: var(--r24);
+      border: 1px solid var(--border);
+      background: linear-gradient(135deg, rgba(47,124,255,0.10), rgba(31,224,198,0.08));
+      box-shadow: var(--shadow);
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .cta h3{ margin:0; font-size: 18px; letter-spacing: -0.2px; }
+    .cta p{ margin:6px 0 0; color: var(--muted); font-size: 13px; line-height: 1.55; max-width: 74ch; }
+    .ctaActions{ display:flex; gap: 10px; flex-wrap: wrap; }
+
+    footer{
+      padding: 26px 0 34px;
+      border-top: 1px solid var(--border);
+      background: rgba(255,255,255,0.04);
+      margin-top: 18px;
+    }
+    html[data-theme="light"] footer{
+      background: rgba(255,255,255,0.72);
+    }
+    .footerGrid{
+      display:grid;
+      grid-template-columns: 1.2fr 1fr 1fr;
+      gap: 14px;
+      align-items:start;
+    }
+    .small{
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .footerLinks a{
+      display:block;
+      padding: 6px 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .footerLinks a:hover{ color: var(--text); }
+
+    /* Modal */
+    .modalBackdrop{
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding: 18px;
+      z-index: 99;
+    }
+    html[data-theme="light"] .modalBackdrop{ background: rgba(7,18,37,0.35); }
+
+    .modal{
+      width: 100%;
+      max-width: 610px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: var(--modalbg);
+      backdrop-filter: blur(12px);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .modalHead{
+      padding: 16px 16px 10px;
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+    .modalHead strong{ font-size: 14px; }
+    .closeBtn{
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      cursor:pointer;
+      color: var(--text);
+    }
+    .modalBody{ padding: 16px; display:grid; gap: 12px; }
+    .field{ display:grid; gap: 6px; }
+    .field label{ font-size: 12px; color: var(--muted); }
+    .field input, .field textarea, .field select{
+      width: 100%;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      outline: none;
+    }
+    .field textarea{ min-height: 92px; resize: vertical; }
+    .modalFoot{
+      padding: 14px 16px 16px;
+      display:flex;
+      gap: 10px;
+      justify-content:flex-end;
+      border-top: 1px solid var(--border);
+    }
+
+    /* Toast */
+    .toast{
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      min-width: 280px;
+      max-width: 92vw;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: var(--toastbg);
+      backdrop-filter: blur(10px);
+      color: var(--text);
+      box-shadow: var(--shadow2);
+      display:none;
+      z-index: 120;
+      font-size: 13px;
+      line-height: 1.35;
+    }
+    .toast b{
+      color: var(--primaryText);
+      background: linear-gradient(135deg, rgba(47,124,255,0.95), rgba(31,224,198,0.88));
+      padding: 2px 8px;
+      border-radius: 999px;
+      margin-right: 8px;
+      font-size: 12px;
+    }
+
+    /* Reveal */
+    .reveal{
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 520ms ease, transform 520ms ease;
+    }
+    .reveal.show{ opacity: 1; transform: translateY(0); }
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .heroGrid{ grid-template-columns: 1fr; }
+      .footerGrid{ grid-template-columns: 1fr; }
+      nav ul{ display:none; }
+      .hamburger{ display:flex; }
+    }
+    @media (max-width: 760px){
+      .grid3{ grid-template-columns: 1fr; }
+      .grid4{ grid-template-columns: 1fr 1fr; }
+      .cta{ padding: 18px; }
+    }
+    @media (max-width: 520px){
+      /* Mobile: increase heading hierarchy so it doesn’t look bland */
+      h1{ font-size: 34px; line-height: 1.06; }
+      h2{ font-size: 24px; }
+      .sub{ font-size: 16px; line-height: 1.7; }
+      .lead{ font-size: 15px; line-height: 1.72; }
+      .punch{ font-size: 20px; }
+    }
+    @media (max-width: 420px){
+      .grid4{ grid-template-columns: 1fr; }
+      h1{ font-size: 32px; }
+      h2{ font-size: 22px; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="gridBG" aria-hidden="true"></div>
+
+  <!-- NAV -->
+  <header>
+    <div class="wrap">
+      <div class="nav">
+        <a class="brand" href="#top" aria-label="Meta9 Home">
+          <div class="logoBox" aria-hidden="true"><span>M9</span></div>
+          <div class="brandTitle">
+            <strong>Meta9 Technologies</strong>
+            <span>Practice-first workforce platforms</span>
+          </div>
+        </a>
+
+        <nav aria-label="Primary navigation">
+          <ul>
+            <li><a href="#why">Why Meta9</a></li>
+            <li><a href="#skill">Skill View</a></li>
+            <li><a href="#product">PracticeLab</a></li>
+            <li><a href="#difference">Difference</a></li>
+            <li><a href="#focus">Focus</a></li>
+            <li><a href="#audience">Who it’s for</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+
+        <div class="navActions">
+          <button class="btn btnTiny" id="themeToggle" title="Toggle theme">Light</button>
+          <button class="btn" id="btnSummary">10-sec Summary</button>
+          <button class="btn btnPrimary" id="btnDemoTop">Request Demo</button>
+          <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div class="mobileMenu" id="mobileMenu">
+        <div class="mCard">
+          <a href="#why" data-close-menu>Why Meta9</a>
+          <a href="#skill" data-close-menu>Skill View</a>
+          <a href="#product" data-close-menu>PracticeLab</a>
+          <a href="#difference" data-close-menu>Difference</a>
+          <a href="#focus" data-close-menu>Focus</a>
+          <a href="#audience" data-close-menu>Who it’s for</a>
+          <a href="#contact" data-close-menu>Contact</a>
+          <div class="mRow">
+            <button class="btn" id="btnSummaryMobile">Summary</button>
+            <button class="btn btnPrimary" id="btnDemoMobile">Request Demo</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <main id="top" class="hero">
+    <div class="wrap">
+      <div class="heroGrid">
+        <div class="panel reveal">
+          <div class="heroMain">
+            <div class="badge">
+              <span class="dot" aria-hidden="true"></span>
+              <span>IT & software product company · Workforce technology</span>
+            </div>
+
+            <h1>Practice-first platforms for real workforce capability</h1>
+
+            <p class="sub">
+              Meta9 Technologies is an <b>IT and software product company operating in the workforce technology space</b>.
+              We build platforms where capability is formed through structured practice — not assumed through instruction or content completion.
+            </p>
+
+            <div class="heroActions">
+              <button class="btn btnPrimary" id="btnDemoHero">Request Demo</button>
+              <a class="btn" href="#product">Explore PracticeLab</a>
+              <a class="btn" href="#difference">What’s Different</a>
+            </div>
+
+            <div class="chips" aria-label="Status and focus">
+              <div class="chip"><b>Demo-ready</b> platform</div>
+              <div class="chip"><b>Pilot-ready</b> with partners</div>
+              <div class="chip"><b>Logistics-first</b> depth</div>
+            </div>
+          </div>
+        </div>
+
+        <aside class="panel reveal">
+          <div class="heroSide">
+            <p class="sideTitle">What you’ll see in a demo</p>
+            <p class="sideText">
+              How learning flows into guided application — and how readiness becomes visible through performance mapping.
+            </p>
+
+            <ul class="list" aria-label="Demo includes">
+              <li><span class="tick">✓</span><span>Role-aligned learning flow (focused, not overloaded)</span></li>
+              <li><span class="tick">✓</span><span>Micro-practice scenario with decisions & workflow steps</span></li>
+              <li><span class="tick">✓</span><span>Workforce Operations (ERP-Lite) tracking: progress + readiness</span></li>
+            </ul>
+
+            <div class="callout">
+              <small>One line that frames the product:</small>
+              <strong>Practice builds capability — capability enables performance.</strong>
+            </div>
+
+            <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+              <button class="btn" id="btnScrollContact">Contact us ↘</button>
+              <button class="btn" id="btnToast">Why it matters</button>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <!-- WHY META9 -->
+  <section id="why">
+    <div class="wrap">
+      <div class="sectionHead reveal">
+        <div>
+          <h2>Why Meta9 exists</h2>
+          <p class="lead">
+            The problem is not just skills. It is readiness for modern work — where technology and workflows keep changing faster than workforce capability.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid3">
+        <div class="card reveal">
+          <div class="icon" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path d="M4 6h16v12H4z" stroke="currentColor" stroke-width="2"/>
+              <path d="M7 20h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3>Technology moves faster than adoption</h3>
+          <p>Enterprises modernise with systems and tools, but capability to use them efficiently often lags behind.</p>
+        </div>
+
+        <div class="card reveal">
+          <div class="icon" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path d="M12 3v9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M7 12h10l-2 9H9l-2-9z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3>Time and opportunity get wasted</h3>
+          <p>Months of instruction often produce weak readiness signals, leading to retraining and delayed productivity.</p>
+        </div>
+
+        <div class="card reveal">
+          <div class="icon" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path d="M7 7h10M7 12h10M7 17h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M4 4h16v16H4z" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <h3>Capability is expected to “emerge”</h3>
+          <p>Most systems assume performance will appear after instruction. PracticeLab is built around capability conversion.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILL VIEW -->
+  <section id="skill">
+    <div class="wrap">
+      <div class="sectionHead reveal">
+        <div>
+          <h2>How we define skill</h2>
+          <p class="lead">
+            Skill is not completion. Skill is functional capability — cognitive and behavioural — strengthened through progressive practice and application.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid3">
+        <div class="card reveal">
+          <h3>Definition</h3>
+          <p>Skill is functional ability built on knowledge and strengthened through experience and expertise gained from progressive application.</p>
+        </div>
+
+        <div class="card reveal">
+          <h3>What this changes</h3>
+          <p>Readiness becomes observable. Practice is structured. Outcomes are not inferred from attendance and tests alone.</p>
+        </div>
+
+        <div class="card reveal">
+          <h3>Design intent</h3>
+          <p>PracticeLab is designed around this conversion — not content delivery — grounded in research on skills, learning, and performance mapping.</p>
+        </div>
+      </div>
+
+      <blockquote class="reveal">
+        <b>Meta9 Skill View</b>
+        Skill = functional ability (cognitive and behavioural), built on knowledge (concepts and techniques), and strengthened through experience and expertise gained from progressive practice and application.
+        PracticeLab is designed around this conversion — not content delivery.
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- PRODUCT -->
+  <section id="product">
+    <div class="wrap">
+      <div class="sectionHead reveal">
+        <div>
+          <h2>Introducing PracticeLab</h2>
+          <p class="lead">
+            A practice-first workforce platform that integrates learning, guided application, and workforce operations (ERP-Lite) into one coherent system.
+          </p>
+        </div>
+      </div>
+
+      <div class="highlight reveal">
+        <div class="grid3" style="margin-bottom:12px;">
+          <div class="card" style="background: rgba(255,255,255,0.07);">
+            <h3>For candidates</h3>
+            <p>Build job-like confidence through guided decisions and workflows — entering work ready to perform, not just ready to begin.</p>
+          </div>
+
+          <div class="card" style="background: rgba(255,255,255,0.07);">
+            <h3>For institutes</h3>
+            <p>Deliver consistently across trainers and batches, with visibility into progression and readiness — beyond attendance and exams.</p>
+          </div>
+
+          <div class="card" style="background: rgba(255,255,255,0.07);">
+            <h3>For industry</h3>
+            <p>Get clearer signals of readiness and faster adoption of systems and workflows — reducing induction and retraining cycles.</p>
+          </div>
+        </div>
+
+        <ul class="list" style="margin-top:0;">
+          <li><span class="tick">✓</span><span><b>Learning</b> — role-aligned concepts and techniques, introduced only where required</span></li>
+          <li><span class="tick">✓</span><span><b>Practice</b> — guided scenarios, micro-projects, decision flows, job-like activities</span></li>
+          <li><span class="tick">✓</span><span><b>Workforce Operations (ERP-Lite)</b> — readiness visibility without enterprise heaviness</span></li>
+        </ul>
+
+        <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
+          <button class="btn btnPrimary" id="btnDemoProduct">Request Demo</button>
+          <button class="btn" id="btnToast2">Candidate outcome</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIFFERENCE -->
+  <section id="difference">
+    <div class="wrap">
+      <div class="sectionHead reveal">
+        <div>
+          <h2>What makes PracticeLab different</h2>
+          <p class="lead">
+            A clear, fast way to understand category position — before you go into details.
+          </p>
+        </div>
+      </div>
+
+      <div class="highlight reveal">
+        <div class="punch">Above LMS. Better than simulators. Simpler than ERP.</div>
+        <div class="punchSub">
+          PracticeLab is built as a practice-first workforce platform — designed to convert training into capability through guided application and readiness visibility,
+          without the limitations of content-only tools, isolated practice layers, or administratively heavy systems.
+        </div>
+
+        <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
+          <button class="btn" id="btnSummary2">10-sec Summary</button>
+          <a class="btn btnPrimary" href="#contact">Discuss a Pilot</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOCUS -->
+  <section id="focus">
+    <div class="wrap">
+      <div class="sectionHead reveal">
+        <div>
+          <h2>Focused by design</h2>
+          <p class="lead">
+            Meta9 follows a sector-by-sector strategy to build depth and realism. Current focus: Logistics & Warehouse Operations.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid3">
+        <div class="card reveal">
+          <h3>Logistics & Warehouse Operations</h3>
+          <p>Workflows, terminology, decision points, and practice projects are grounded in real operational settings.</p>
+        </div>
+        <div class="card reveal">
+          <h3>Validation before expansion</h3>
+          <p>Additional sectors will be introduced after pilots validate adoption, outcomes, and operational feasibility.</p>
+        </div>
+        <div class="card reveal">
+          <h3>Partner-led pilots</h3>
+          <p>We collaborate with institutes, training partners, and employers to keep practice aligned to workplace reality.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHO IT'S FOR -->
+  <section id="audience">
+    <div class="wrap">
+      <div class="sectionHead reveal">
+        <div>
+          <h2>Who we build for</h2>
+          <p class="lead">
+            PracticeLab is built for institutions and employers who want outcomes and adoption — not tool sprawl.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid4">
+        <div class="card reveal">
+          <h3>Institutes & Academies</h3>
+          <p>Practice-led delivery with better structure and readiness visibility.</p>
+        </div>
+        <div class="card reveal">
+          <h3>Training Partners</h3>
+          <p>Consistency across centres and batches with evidence of progression.</p>
+        </div>
+        <div class="card reveal">
+          <h3>Industry & Employers</h3>
+          <p>More job-ready capability and faster system adoption.</p>
+        </div>
+        <div class="card reveal">
+          <h3>Advisors & Ecosystem Partners</h3>
+          <p>Partners who support pilots, validation, and scale.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT CTA -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="cta reveal">
+        <div>
+          <h3>See PracticeLab in action</h3>
+          <p>
+            A focused demo shows how learning flows into practice and how readiness becomes visible.
+            PracticeLab is best understood through use — not slides.
+          </p>
+        </div>
+        <div class="ctaActions">
+          <button class="btn btnPrimary" id="btnDemoCTA">Request Demo</button>
+          <button class="btn" id="btnOpenContact">Contact</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="wrap">
+      <div class="footerGrid">
+        <div class="reveal">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <div class="logoBox" aria-hidden="true" style="width:40px;height:40px;border-radius:14px;"><span>M9</span></div>
+            <div>
+              <strong style="font-size:14px;">Meta9 Technologies</strong><br />
+              <span class="small">IT & software product company · Workforce technology</span>
+            </div>
+          </div>
+          <p class="small" style="margin-top:10px;">
+            We build practice-first platforms that enable capability development, performance readiness, and workforce operations at scale.
+          </p>
+        </div>
+
+        <div class="footerLinks reveal">
+          <strong style="font-size:13px;">Quick Links</strong>
+          <a href="#product">PracticeLab</a>
+          <a href="#difference">Difference</a>
+          <a href="#focus">Focus</a>
+          <a href="#contact">Contact</a>
+        </div>
+
+        <div class="footerLinks reveal">
+          <strong style="font-size:13px;">Get in touch</strong>
+          <a href="javascript:void(0)" id="footerDemo">Request Demo</a>
+          <a href="javascript:void(0)" id="footerContact">Contact</a>
+          <span class="small" style="display:block; margin-top:8px;">
+            © <span id="year"></span> Meta9 Technologies. All rights reserved.
+          </span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MODAL -->
+  <div class="modalBackdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal" role="document">
+      <div class="modalHead">
+        <strong id="modalTitle">Request a Demo</strong>
+        <button class="closeBtn" id="closeModal" aria-label="Close">✕</button>
+      </div>
+
+      <div class="modalBody">
+        <div class="field">
+          <label for="org">Organization / Institute</label>
+          <input id="org" type="text" placeholder="e.g., ABC Skill Academy" />
+        </div>
+
+        <div class="field">
+          <label for="role">I am a</label>
+          <select id="role">
+            <option value="Institute">Institute / Academy</option>
+            <option value="TrainingPartner">Training Partner</option>
+            <option value="Industry">Industry / Employer</option>
+            <option value="Advisor">Advisor / Ecosystem Partner</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="email">Email / Phone</label>
+          <input id="email" type="text" placeholder="your@email.com or +91..." />
+        </div>
+
+        <div class="field">
+          <label for="msg">What would you like to focus on?</label>
+          <textarea id="msg" placeholder="Demo focus: practice flows, trainer view, readiness tracking, logistics role coverage..."></textarea>
+        </div>
+
+        <div class="card" style="margin-top:4px;">
+          <h3 style="margin:0 0 6px; font-size: 13px;">Demo typically covers</h3>
+          <div class="small">
+            Learning flow → Micro-practice scenario → Workforce Operations (ERP-Lite) tracking (progress + readiness).
+          </div>
+        </div>
+
+        <div class="small">
+          Note: This is a prototype form. Connect it to your backend/CRM later.
+        </div>
+      </div>
+
+      <div class="modalFoot">
+        <button class="btn" id="btnCancel">Cancel</button>
+        <button class="btn btnPrimary" id="btnSubmit">Submit</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <b>Meta9</b> Practice-first platforms that convert training into workforce capability.
+  </div>
+
+  <script>
+    const $ = (sel) => document.querySelector(sel);
+    const $$ = (sel) => Array.from(document.querySelectorAll(sel));
+
+    // Year
+    $("#year").textContent = new Date().getFullYear();
+
+    // Theme toggle
+    const themeToggle = $("#themeToggle");
+    function setTheme(t){
+      document.documentElement.setAttribute("data-theme", t);
+      themeToggle.textContent = (t === "dark") ? "Light" : "Dark";
+      try { localStorage.setItem("m9_theme", t); } catch(e) {}
+    }
+    let saved = null;
+    try { saved = localStorage.getItem("m9_theme"); } catch(e) {}
+    if(saved === "light" || saved === "dark") setTheme(saved);
+    else setTheme("dark");
+
+    themeToggle.addEventListener("click", () => {
+      const current = document.documentElement.getAttribute("data-theme");
+      setTheme(current === "dark" ? "light" : "dark");
+    });
+
+    // Mobile menu
+    const hamburger = $("#hamburger");
+    const mobileMenu = $("#mobileMenu");
+    const toggleMenu = () => {
+      const open = mobileMenu.style.display === "block";
+      mobileMenu.style.display = open ? "none" : "block";
+      hamburger.setAttribute("aria-expanded", String(!open));
+    };
+    hamburger.addEventListener("click", toggleMenu);
+    $$("[data-close-menu]").forEach(a => a.addEventListener("click", () => {
+      mobileMenu.style.display = "none";
+      hamburger.setAttribute("aria-expanded", "false");
+    }));
+
+    // Smooth scroll
+    function scrollToId(id){
+      const el = document.getElementById(id);
+      if(!el) return;
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+    $("#btnScrollContact").addEventListener("click", () => scrollToId("contact"));
+
+    // Modal
+    const backdrop = $("#modalBackdrop");
+    const closeModal = () => {
+      backdrop.style.display = "none";
+      backdrop.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    };
+    const openModal = (title) => {
+      $("#modalTitle").textContent = title || "Request a Demo";
+      backdrop.style.display = "flex";
+      backdrop.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+      setTimeout(() => $("#org").focus(), 60);
+    };
+
+    $("#closeModal").addEventListener("click", closeModal);
+    $("#btnCancel").addEventListener("click", closeModal);
+    backdrop.addEventListener("click", (e) => { if(e.target === backdrop) closeModal(); });
+    document.addEventListener("keydown", (e) => {
+      if(e.key === "Escape" && backdrop.style.display === "flex") closeModal();
+    });
+
+    ["#btnDemoTop","#btnDemoHero","#btnDemoProduct","#btnDemoCTA","#btnDemoMobile","#footerDemo"]
+      .forEach(sel => $(sel).addEventListener("click", () => openModal("Request a Demo")));
+
+    ["#btnOpenContact","#footerContact"]
+      .forEach(sel => $(sel).addEventListener("click", () => openModal("Contact Meta9")));
+
+    // Submit (demo)
+    $("#btnSubmit").addEventListener("click", () => {
+      const org = $("#org").value.trim();
+      const role = $("#role").value;
+      const email = $("#email").value.trim();
+
+      if(!org || !email){
+        showToast("Please enter Organization and Email/Phone.");
+        return;
+      }
+      showToast(`Submitted. We'll respond soon. (${role} · ${org})`);
+      closeModal();
+
+      $("#org").value = "";
+      $("#email").value = "";
+      $("#msg").value = "";
+      $("#role").value = "Institute";
+    });
+
+    // Reveal on scroll
+    const revealEls = $$(".reveal");
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(en => { if(en.isIntersecting) en.target.classList.add("show"); });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => io.observe(el));
+
+    // Toast helpers
+    const toast = $("#toast");
+    let toastTimer = null;
+    function showToast(text){
+      toast.innerHTML = `<b>Meta9</b> ${escapeHtml(text)}`;
+      toast.style.display = "block";
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => { toast.style.display = "none"; }, 3000);
+    }
+    function escapeHtml(str){
+      return str
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+    }
+
+    function showSummary(){
+      showToast("PracticeLab converts learning into capability through guided practice + readiness visibility (ERP-Lite).");
+    }
+    $("#btnSummary").addEventListener("click", showSummary);
+    $("#btnSummaryMobile").addEventListener("click", showSummary);
+    $("#btnSummary2")?.addEventListener("click", showSummary);
+
+    $("#btnToast").addEventListener("click", () => {
+      showToast("Modern systems fail when workforce capability lags. PracticeLab builds readiness through practice, not instruction alone.");
+    });
+    $("#btnToast2")?.addEventListener("click", () => {
+      showToast("Candidate outcome: operational confidence + faster adoption of real workflows, with less on-job confusion and retraining.");
+    });
+  </script>
+</body>
+</html>
+Displaying Meta9 webpage V1.3.html.
